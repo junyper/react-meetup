@@ -151,7 +151,7 @@ export default class Presentation extends React.Component {
               vs a "live" style guide...
 
               In recent years it's become pretty standard to build out a "living" style
-              guide and there's ton of open source tools to help you generate documentation
+              guide and there are a bunch of open source tools to help you generate documentation
               from your Sass or CSS style sheets.
             `}
           >
@@ -166,7 +166,7 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              We've had one for a while now and the documentation looks like this.
+              We've had one our living style guide for a while now and the documentation looks like this.
 
               When I first starting building out documentation like this, I was thinking...
             `}
@@ -191,8 +191,9 @@ export default class Presentation extends React.Component {
             bgColor="black"
             transition={["slide"]}
             notes={`
-              Is this the holy grail? Can we finally have a 'single source of truth' and
-              stop manually updating documentation that is out of date as soon as we write it?
+              Is this the holy grail? Can we finally have a 'single source of truth' owned by
+              both design and engineering and stop manually updating documentation that is usually
+              out of date as soon as we write it?
             `}
           >
             <Image src={images.holyGrail.replace("/", "")} margin="0" />
@@ -202,22 +203,20 @@ export default class Presentation extends React.Component {
             bgColor="black"
             transition={["slide"]}
             notes={`
-              Nope.
+              Well... Nope.
 
-              Our "live" style guide is still out of sync with the application code, and designers
-              don't reference it (if they know it exists).
+              As it turns out, our "live" style guide is still out of sync with the application code,
+              and most designers and developers don't reference it when they are working on new features
+              (if they know it exists).
 
               Why?
 
-              There is a steep learning curve. The old style guide lives in our monolithic code base which is difficult to set up and
-              get running. It's not fair to ask designers to learn to update the documentation.
+              There is a steep learning curve to working in our monolithic code base, and since the old
+              style guide lives there and is part of that build, it's difficult to set up and
+              get running. So it's not really fair to ask designers to learn to update the documentation.
 
-              Developers aren't familiar with the build and documentation...
-              because our current front end build process and testing setup is cumbersome.
-
-              Most full stack developers dislike working in the front end code, even when building out
-              new React components and aren't likely to spend more time there than is absolutely
-              necessary.
+              In fact, most developers aren't familiar with the style guide part of the build
+              because our current front end build process and testing setup is confusing and cumbersome.
             `}
           >
             <Image src={images.panda.replace("/", "")} margin="0" />
@@ -225,20 +224,23 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              A custom checkbox (toggle) in our sass style guide.
+              So let's take a look at a custom checkbox (toggle) in our sass style guide.
 
               Notice that there is a lot of markup to copy and paste.
 
               Also to make it accessible we need to add some JS behavior to it.
 
-              So the documentation doesn't
-              necessarily reflect what's in the application code in terms of markup
-              or JS for behavior.
+              So the documentation doesn't necessarily reflect what's in the application code
+              in terms of html markup or JS for behavior.
+
+              The scss code for this component lives in a common css file that is used across the
+              application.
 
               Most developers are reluctant to make changes to CSS because they aren't sure what they may
-              break.
+              break and so they probably never see the files that have the documentation comment blocks.
 
-              This leads to lots of one-off solutions, duplication of effort and inconsistency in the UX.
+              This leads to lots of one-off solutions and overrides, duplication of effort and
+              inconsistency in the UX.
             `}
           >
               <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -253,8 +255,8 @@ export default class Presentation extends React.Component {
             transition={["spin", "slide"]}
             bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
             notes={`
-              So how do we get designers and developers to share ownership of
-              our living style guide?
+              So how do we fix this and get designers and developers to share ownership of
+              our living style guide v2.0?
             `}
           >
             <BlockQuote bgColor="rgba(0, 0, 0, 0.6)" margin="1em 0" padding="1em 1.5em">
@@ -271,9 +273,10 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              Let's compare with a custom checkbox (toggle) in our react style guide.
+              Let's compare that Toggle documentation with a custom checkbox (toggle)
+              in our new React style guide.
 
-              Here we're encapsulating style, markup and behavior for the component.
+              Notice that here we're encapsulating style, markup and behavior for the component.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -292,7 +295,8 @@ export default class Presentation extends React.Component {
               Examples are generated from code blocks.
               Property documentation is generated from code + comment blocks using react-docgen.
 
-              But in this case, CSS, JS, HTML and documentation are bundled and documented as one.
+              But in this case, CSS, JS, HTML and documentation are bundled and documented as one
+              component.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -312,15 +316,15 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              Component library code is in a separate repository and the documentation app
+              The component library code is in a separate repository and the documentation app
               is easy to install and and run locally.
 
               We've spent lots of time on scaffolding and tools to make it super easy to
-              spin up a new component.
+              spin up a new component and write documentation and tests for it.
 
               (webpack dev server + hot reloading, eslint, stylelint)
 
-              Designers can (at minimum) pull down code from a pull request and run it locally.
+              Now designers can (at minimum) pull down code from a pull request and run it locally.
 
               (We're working on convincing them that they can update it too :) )
             `}
@@ -384,8 +388,9 @@ export default class Presentation extends React.Component {
             notes={`
               Generated class names in development
 
-              similar to BEM format
-              makes it easy to debug issues
+              Note that it's pretty similar to the BEM class name format
+
+              This makes it easy to debug issues in dev mode.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -399,6 +404,12 @@ export default class Presentation extends React.Component {
           <Slide
             notes={`
               Prevent the cascade with all: initial and postcss-initial
+
+              We need to roll out these components bit by bit, so they need to work when older
+              legacy CSS and various versions of Bootstrap CSS.
+
+              We want to be pretty sure they'll work the same in the consuming app as they do in
+              the documentation app.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -417,7 +428,7 @@ export default class Presentation extends React.Component {
             bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
             notes={`
               As it turns out, bundling component JS, CSS and markup together
-              makes writing accessibily UIs a whole lot easier.
+              makes writing accessibile UIs a whole lot easier.
             `}
           >
             <Heading size={1} fit caps>Accessibility</Heading>
@@ -472,7 +483,7 @@ export default class Presentation extends React.Component {
 
               A11y benefits (unit tests)
 
-              We can use tools like axe-core and *eslint-plugin-jsx-a11y* to run unit tests to verify
+              We can use tools like axe-core and eslint-plugin-jsx-a11y to run unit tests to verify
               that the components are accessible and lint for common a11y issues
               (e.g. missing alt attributes on images).
             `}
@@ -647,6 +658,18 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide
+            transition={["spin", "slide"]}
+            bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
+            notes={`
+              Questions
+            `}
+          >
+            <Heading textColor="tertiary" fit caps lineHeight={1}>
+              Questions?
+            </Heading>
+          </Slide>
+
+          <Slide
             notes={`
               Resources and Links
             `}
@@ -681,19 +704,6 @@ export default class Presentation extends React.Component {
               </ListItem>
             </List>
           </Slide>
-
-          <Slide
-            transition={["spin", "slide"]}
-            bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
-            notes={`
-              Questions
-            `}
-          >
-            <Heading textColor="tertiary" fit caps lineHeight={1}>
-              Questions?
-            </Heading>
-          </Slide>
-
         </Deck>
       </Spectacle>
     );
