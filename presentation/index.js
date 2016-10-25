@@ -3,7 +3,6 @@ import React from "react";
 
 // Import Spectacle Core tags
 import {
-  Appear,
   BlockQuote,
   Cite,
   CodePane,
@@ -14,7 +13,8 @@ import {
   Quote,
   Slide,
   Spectacle,
-  Text
+  Text,
+  Code
 } from "spectacle";
 
 // Import image preloader util
@@ -41,7 +41,13 @@ const images = {
   happy: require("../assets/happy.jpg"),
   button: require("../assets/button.png"),
   production: require("../assets/production.png"),
-  development: require("../assets/development.png")
+  development: require("../assets/development.png"),
+  initial: require("../assets/initial.png"),
+  applyTheme: require("../assets/applyTheme.png"),
+  themed: require("../assets/themed.png"),
+  zoomed: require("../assets/zoomed.png"),
+  variableSupport: require("../assets/variableSupport.png"),
+  holyGrail: require("../assets/holyGrail.jpg")
 };
 
 preloader(images);
@@ -93,49 +99,38 @@ export default class Presentation extends React.Component {
               What's a style guide?
             `}
           >
-            <Appear fid="1">
-              <Heading size={1} fit caps lineHeight={1}>
-                What's a Style Guide?
-              </Heading>
-            </Appear>
-            <Appear fid="2">
-              <BlockQuote bgColor="rgba(0, 0, 0, 0.6)" margin="1em 0" padding="1em 1.5em">
-                <Quote>
-                  <Text textColor="tertiary" textSize="0.4em" bold={false} lineHeight={1.2}>
-                  A style guide is a set of standards for the writing and design of documents,
-                  either for general use or for a specific publication, organization, or field....
-                  <Text margin="1em 0px 0px" textSize="1em" textColor="primary" caps bold lineHeight={1.2}>
-                    A style guide establishes and enforces style to improve communication.
-                  </Text>
-                  </Text>
-                </Quote>
-                <Cite textColor="tertiary" textSize="0.5em">
-                  <Link textColor="tertiary" href="https://en.wikipedia.org/wiki/Style_guide">
-                    Wikipedia
-                  </Link>
-                </Cite>
-              </BlockQuote>
-            </Appear>
-          </Slide>
+            <Heading size={1} fit caps lineHeight={1}>
+              What's a Style Guide?
+            </Heading>
 
+            <BlockQuote bgColor="rgba(0, 0, 0, 0.6)" margin="1em 0" padding="1em 1.5em">
+              <Quote textColor="tertiary" textSize="1em" bold={false} lineHeight={1.5}>
+                A style guide is a set of standards for the writing and design of documents,
+                either for general use or for a specific publication, organization, or field....
+                <Text margin="1em 0px 0px" textSize="1em" textColor="primary" caps bold lineHeight={1.2}>
+                  A style guide establishes and enforces style to improve communication.
+                </Text>
+              </Quote>
+              <Cite textColor="tertiary" textSize="0.5em">
+                <Link textColor="tertiary" href="https://en.wikipedia.org/wiki/Style_guide">
+                  Wikipedia
+                </Link>
+              </Cite>
+            </BlockQuote>
+          </Slide>
 
           <Slide
             notes={`
               What's a static style guide
             `}
           >
-            <Appear fid="1">
-              <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-                Static Style Guide
-              </Text>
-            </Appear>
-            <Appear fid="2">
-              <div>
-                <div className="browser">
-                  <Image src={images.invision.replace("/", "")} margin="0" height="500px" />
-                </div>
-              </div>
-            </Appear>
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              Static Style Guide
+            </Text>
+
+            <div className="browser">
+              <Image src={images.invision.replace("/", "")} margin="0" height="500px" />
+            </div>
           </Slide>
 
           <Slide
@@ -143,18 +138,13 @@ export default class Presentation extends React.Component {
               vs a "live" style guide
             `}
           >
-            <Appear fid="1">
-              <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-                Live Style Guide (or pattern library)
-              </Text>
-            </Appear>
-            <Appear fid="2">
-              <div>
-                <div className="browser">
-                  <Image src={images.canvas.replace("/", "")} margin="0" height="500px" />
-                </div>
-              </div>
-            </Appear>
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              Live Style Guide (or pattern library)
+            </Text>
+
+            <div className="browser">
+              <Image src={images.canvas.replace("/", "")} margin="0" height="500px" />
+            </div>
           </Slide>
 
 
@@ -163,8 +153,11 @@ export default class Presentation extends React.Component {
               Live style guide description
             `}
           >
+           <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              In a Live Style Guide
+            </Text>
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-              Documentation lives with the source code
+              Documentation lives with the source code in the same repository
             </Text>
             <div style={{height: "500px", overflow: "auto"}}>
               <CodePane
@@ -175,40 +168,37 @@ export default class Presentation extends React.Component {
             </div>
           </Slide>
 
+
           <Slide
             notes={`
-              How do we get both designers and developers to share ownership?
-
-              The old style guide lives in our monolithic code base which is difficult to set up and
-              get running and there is a steep learning curve for designers.
-
-              Developers aren't familiar with the build and documentation...
-              Current front end build process and testing setup is cumbersome.
-
-              Most full stack developers dislike working in the front end code, even when building out
-              new React components.
+              Is this the holy grail? Can we finally have a 'single source of truth' and
+              stop manually updating documentation that is out of date as soon as we write it?
             `}
           >
-            <Image src={images.panda.replace("/", "")} margin="0" />
+            <Image src={images.holyGrail.replace("/", "")} margin="0" />
           </Slide>
 
           <Slide
             notes={`
+              Nope.
 
+              Our "live" style guide is still out of sync with the application code, and designers
+              don't reference it (if they know it exists).
+
+              Why?
+
+              There is a steep learning curve. The old style guide lives in our monolithic code base which is difficult to set up and
+              get running. It's not fair to ask designers to learn to update the documentation.
+
+              Developers aren't familiar with the build and documentation...
+              because our current front end build process and testing setup is cumbersome.
+
+              Most full stack developers dislike working in the front end code, even when building out
+              new React components and aren't likely to spend more time there than is absolutely
+              necessary.
             `}
           >
-            <BlockQuote bgColor="rgba(0, 0, 0, 0.6)" margin="1em 0" padding="1em 1.5em">
-              <Quote>
-                <Text textColor="tertiary" textSize="0.4em" bold={false} lineHeight={1.2}>
-                Make the right things easy and the wrong things hard.
-                </Text>
-              </Quote>
-              <Cite textColor="tertiary" textSize="0.5em">
-                <Link textColor="tertiary" href="https://en.wikipedia.org/wiki/Style_guide">
-                  Jonathan Snook
-                </Link>
-              </Cite>
-            </BlockQuote>
+            <Image src={images.panda.replace("/", "")} margin="0" />
           </Slide>
 
           <Slide
@@ -234,6 +224,23 @@ export default class Presentation extends React.Component {
               </div>
           </Slide>
 
+          <Slide
+            notes={`
+              So how do we get designers and developers to share ownership of
+              our living style guide?
+            `}
+          >
+            <BlockQuote bgColor="rgba(0, 0, 0, 0.6)" margin="1em 0" padding="1em 1.5em">
+              <Quote textColor="tertiary" textSize="1em" bold={false} lineHeight={1.2}>
+                Make the right things easy and the wrong things hard.
+              </Quote>
+              <Cite textColor="tertiary" textSize="0.5em">
+                <Link textColor="tertiary" href="https://en.wikipedia.org/wiki/Style_guide">
+                  Jonathan Snook
+                </Link>
+              </Cite>
+            </BlockQuote>
+          </Slide>
 
           <Slide
             notes={`
@@ -242,6 +249,9 @@ export default class Presentation extends React.Component {
               Here we're encapsulating style, markup and behavior for this component.
             `}
           >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              A custom checkbox in Sass
+            </Text>
             <div className="browser">
               <Image src={images.checkbox.replace("/", "")} margin="0" height="500px" />
             </div>
@@ -322,16 +332,23 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              Avoiding the cascade
+              so what are some of the tools we're using?
 
-              CSS Modules and all: initial / postcss-initial
+              CSS Modules
+
+              With CSS modules we can isolate components and make them more durable by
+              limiting the scope of their CSS.
+
+              Frameworks like Radium and Aphrodite do this by writing CSS rules in JS.
+
+              Prevent the cascade with all: initial and postcss-initial
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
               CSS Modules
             </Text>
             <Text textColor="tertiary" caps fit>
-              (avoiding the cascade)
+              (isolate component styles <b>without writing CSS in JS</b>)
             </Text>
             <div style={{height: "400px", overflow: "auto"}}>
               <CodePane
@@ -348,7 +365,7 @@ export default class Presentation extends React.Component {
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-              With production config
+              <small>with</small> production config
             </Text>
             <div className="browser">
               <Image src={images.production.replace("/", "")} margin="0" height="550px" />
@@ -358,13 +375,32 @@ export default class Presentation extends React.Component {
           <Slide
             notes={`
               Generated class names in development
+
+              similar to BEM format
+              makes it easy to debug issues
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-              With development config
+              <small>with</small> development config
             </Text>
             <div className="browser">
               <Image src={images.development.replace("/", "")} margin="0" height="550px" />
+            </div>
+          </Slide>
+
+          <Slide
+            notes={`
+              Prevent the cascade with all: initial and postcss-initial
+            `}
+          >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              Prevent the Cascade
+            </Text>
+            <Text textColor="tertiary" caps fit>
+              with <Code textSize="1em" caps={false}>all: initial</Code> and postcss-initial
+            </Text>
+            <div className="browser">
+              <Image src={images.initial.replace("/", "")} margin="0" width="100%" />
             </div>
           </Slide>
 
@@ -386,13 +422,15 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
+              (JS...)
+
               A11y benefits (Button and Link components)
 
               look at handleKeyDown method
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-              Accessible Buttons
+              Adding (JS) behavior to components for <b>accessibility</b>
             </Text>
             <div style={{height: "400px", overflow: "auto"}}>
               <CodePane
@@ -405,6 +443,8 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
+              (html...)
+
               A11y benefits (unit tests)
 
               We can use tools like axe-core and *eslint-plugin-jsx-a11y* to run unit tests to verify
@@ -428,9 +468,7 @@ export default class Presentation extends React.Component {
             notes={`
               A11y benefits (color contrast)
 
-              We can use tools like axe-core and eslint-plugin-jsx-a11y to run unit tests to verify
-              that the components are accessible and lint for common a11y issues
-              (e.g. missing alt attributes on images).
+              Notice the variables are defined in JS...
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -449,27 +487,21 @@ export default class Presentation extends React.Component {
             notes={`
               Run time themeing.
 
-              ApplyTheme component
-            `}
-          >
-          </Slide>
-
-          <Slide
-            notes={`
-              Run time themeing.
-
               Sass variables
+
+              We need to pre-process all of the variations and custom brands as part of our build.
             `}
           >
-          </Slide>
-
-          <Slide
-            notes={`
-              Run time themeing.
-
-              Sass variables
-            `}
-          >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              SASS variables in the monolith
+            </Text>
+            <div style={{height: "500px", overflow: "auto"}}>
+              <CodePane
+                lang="scss"
+                source={require("raw!../assets/variables.scss")}
+                margin="1em auto"
+              />
+            </div>
           </Slide>
 
           <Slide
@@ -479,6 +511,16 @@ export default class Presentation extends React.Component {
               Global/Brand JS variables
             `}
           >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              Global brand variables defined in JS
+            </Text>
+            <div style={{height: "500px", overflow: "auto"}}>
+              <CodePane
+                lang="js"
+                source={require("raw!../assets/brand.js")}
+                margin="1em auto"
+              />
+            </div>
           </Slide>
 
           <Slide
@@ -488,15 +530,85 @@ export default class Presentation extends React.Component {
               Component/functional variables
             `}
           >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              Component variables defined in JS
+            </Text>
+            <div style={{height: "500px", overflow: "auto"}}>
+              <CodePane
+                lang="js"
+                source={require("raw!../assets/theme.js")}
+                margin="1em auto"
+              />
+            </div>
           </Slide>
 
           <Slide
             notes={`
               Run time themeing.
 
+              ApplyTheme component
+            `}
+          >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              Applying themes at run time
+            </Text>
+            <div className="browser">
+              <Image src={images.applyTheme.replace("/", "")} margin="0" width="800px" />
+            </div>
+          </Slide>
+
+          <Slide
+            notes={`
+              How does this work without writing inline styles?
+
               CSS custom properties
             `}
           >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              CSS custom properties
+            </Text>
+            <div className="browser">
+              <Image src={images.themed.replace("/", "")} margin="0" width="800px" />
+            </div>
+          </Slide>
+
+          <Slide
+            notes={`
+              Setting custom properties with JS
+            `}
+          >
+            <Code textColor="tertiary" fit lineHeight={1}>
+              CSSStyleDeclaration.setProperty()
+            </Code>
+            <CodePane
+              lang="js"
+              source={require("raw!../assets/setProperty.js")}
+              margin="1em auto"
+            />
+          </Slide>
+
+          <Slide
+            notes={`
+              CSS custom properties browser support
+            `}
+          >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              CSS custom properties
+            </Text>
+            <div className="browser">
+              <Image src={images.variableSupport.replace("/", "")} margin="0" width="800px" />
+            </div>
+          </Slide>
+
+          <Slide
+            notes={`
+              Polyfill for IE
+            `}
+          >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              Polyfill for IE
+            </Text>
+
           </Slide>
 
           <Slide
@@ -514,6 +626,7 @@ export default class Presentation extends React.Component {
               webpack css-loader
             `}
           >
+            <div>TODO</div>
           </Slide>
 
         </Deck>
