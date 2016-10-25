@@ -14,7 +14,9 @@ import {
   Slide,
   Spectacle,
   Text,
-  Code
+  Code,
+  List,
+  ListItem
 } from "spectacle";
 
 // Import image preloader util
@@ -97,6 +99,13 @@ export default class Presentation extends React.Component {
             bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
             notes={`
               What's a style guide?
+
+              Where application development is concerned:
+
+              It's all about better process and communication between designers and developers
+              (and in a larger org between developers -- reducing duplication of efforts)
+
+              To produce a more consistent UX and to be able to build out UI code more efficiently.
             `}
           >
             <Heading size={1} fit caps lineHeight={1}>
@@ -121,7 +130,11 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              What's a static style guide
+              Our designers maintain a static style guide in Sketch app and they share it
+              with us in invision.
+
+              This document doesn't really reflect the state of the current application UI
+              and is time consuming to maintain.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -135,22 +148,27 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              vs a "live" style guide
+              vs a "live" style guide...
+
+              In recent years it's become pretty standard to build out a "living" style
+              guide and there's ton of open source tools to help you generate documentation
+              from your Sass or CSS style sheets.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-              Live Style Guide (or pattern library)
+              Live Style Guide
             </Text>
-
+            <Text textSize="3rem" textColor="tertiary">(or pattern library)</Text>
             <div className="browser">
-              <Image src={images.canvas.replace("/", "")} margin="0" height="500px" />
+              <Image src={images.canvas.replace("/", "")} margin="0" height="400px" />
             </div>
           </Slide>
 
-
           <Slide
             notes={`
-              Live style guide description
+              We've had one for a while now and the documentation looks like this.
+
+              When I first starting building out documentation like this, I was thinking...
             `}
           >
            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -170,6 +188,8 @@ export default class Presentation extends React.Component {
 
 
           <Slide
+            bgColor="black"
+            transition={["slide"]}
             notes={`
               Is this the holy grail? Can we finally have a 'single source of truth' and
               stop manually updating documentation that is out of date as soon as we write it?
@@ -179,6 +199,8 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide
+            bgColor="black"
+            transition={["slide"]}
             notes={`
               Nope.
 
@@ -205,26 +227,31 @@ export default class Presentation extends React.Component {
             notes={`
               A custom checkbox (toggle) in our sass style guide.
 
-              There is a lot of markup to copy and paste.
+              Notice that there is a lot of markup to copy and paste.
 
-              To make it accessible we need to add some JS behavior to it.
+              Also to make it accessible we need to add some JS behavior to it.
 
-              The documentation doesn't
+              So the documentation doesn't
               necessarily reflect what's in the application code in terms of markup
               or JS for behavior.
 
               Most developers are reluctant to make changes to CSS because they aren't sure what they may
               break.
 
-              This leads to lots of one-off solutions, duplication of effort and inconsitency in the UX.
+              This leads to lots of one-off solutions, duplication of effort and inconsistency in the UX.
             `}
           >
+              <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+                A custom checkbox in <b>Sass</b>
+              </Text>
               <div className="browser">
                 <Image src={images.toggle.replace("/", "")} margin="0" height="500px" />
               </div>
           </Slide>
 
           <Slide
+            transition={["spin", "slide"]}
+            bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
             notes={`
               So how do we get designers and developers to share ownership of
               our living style guide?
@@ -244,13 +271,13 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              A custom checkbox (toggle) in our react style guide.
+              Let's compare with a custom checkbox (toggle) in our react style guide.
 
-              Here we're encapsulating style, markup and behavior for this component.
+              Here we're encapsulating style, markup and behavior for the component.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-              A custom checkbox in Sass
+              A custom checkbox in <b>React</b>
             </Text>
             <div className="browser">
               <Image src={images.checkbox.replace("/", "")} margin="0" height="500px" />
@@ -259,9 +286,13 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              Documentation is generated from the source code + markdown in comment blocks.
+              Similar to our old style guide:
+              the documentation is generated from the source code + markdown in comment blocks.
 
-              CSS, JS, HTML and documentation are bundled.
+              Examples are generated from code blocks.
+              Property documentation is generated from code + comment blocks using react-docgen.
+
+              But in this case, CSS, JS, HTML and documentation are bundled and documented as one.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -281,8 +312,8 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              Code is in a separate repository and the documentation app is easy to install and
-              and run locally.
+              Component library code is in a separate repository and the documentation app
+              is easy to install and and run locally.
 
               We've spent lots of time on scaffolding and tools to make it super easy to
               spin up a new component.
@@ -290,49 +321,26 @@ export default class Presentation extends React.Component {
               (webpack dev server + hot reloading, eslint, stylelint)
 
               Designers can (at minimum) pull down code from a pull request and run it locally.
-            `}
-          >
-            <div style={{height: "500px", overflow: "auto"}}>
-              <CodePane
-                lang="jsx"
-                source={require("raw!../assets/checkbox.js")}
-                margin="1em auto"
-              />
-            </div>
-          </Slide>
 
-          <Slide
-            notes={`
-              Examples are generated from code blocks.
-              Property documentation is generated from code + comment blocks using react-docgen.
-            `}
-          >
-            <div style={{height: "500px", overflow: "auto"}}>
-              <CodePane
-                lang="jsx"
-                source={require("raw!../assets/checkbox.js")}
-                margin="1em auto"
-              />
-            </div>
-          </Slide>
-
-          <Slide
-            notes={`
-              Code is in a separate repository and the documentation app is easy to install and
-              and run locally.
-
-              We've spent lots of time on scaffolding and tools to make it super easy to
-              spin up a new component.
-
-              Designers can (at minimum) pull down code from a pull request and run it locally.
+              (We're working on convincing them that they can update it too :) )
             `}
           >
             <Image src={images.happy.replace("/", "")} margin="0" />
           </Slide>
 
           <Slide
+            transition={["spin", "slide"]}
+            bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
             notes={`
-              so what are some of the tools we're using?
+
+            `}
+          >
+            <Heading size={1} fit caps>How does it work?</Heading>
+          </Slide>
+
+          <Slide
+            notes={`
+              So what are some of the tools we're using?
 
               CSS Modules
 
@@ -405,11 +413,28 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide
+            transition={["spin", "slide"]}
+            bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
+            notes={`
+              As it turns out, bundling component JS, CSS and markup together
+              makes writing accessibily UIs a whole lot easier.
+            `}
+          >
+            <Heading size={1} fit caps>Accessibility</Heading>
+          </Slide>
+
+          <Slide
             notes={`
               A11y benefits (Button and Link components)
 
-              If it looks like a button it behaves like a button.
-              If it looks like a link it behaves like a link.
+              In Canvas, we fix a lot of a11y bugs around buttons. Usually
+              we've added onClick behavior to a div or we've styled a link to look
+              like a button (or vice versa).
+
+              A11y rule of thumb:
+
+              If it looks like a button it should behave like a button.
+              If it looks like a link it should behave like a link.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -426,7 +451,7 @@ export default class Presentation extends React.Component {
 
               A11y benefits (Button and Link components)
 
-              look at handleKeyDown method
+              Take a look at the handleKeyDown method
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -466,6 +491,8 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
+              (color variables...)
+
               A11y benefits (color contrast)
 
               Notice the variables are defined in JS...
@@ -484,16 +511,34 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide
+            transition={["spin", "slide"]}
+            bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
             notes={`
-              Run time themeing.
 
+            `}
+          >
+            <Heading size={1} caps>Themes</Heading>
+          </Slide>
+
+          <Slide
+            notes={`
               Sass variables
 
+              Notice the global (color) variables.
+
+              Notice the functional (link) variables.
+
+              What's the drawback here?
+
               We need to pre-process all of the variations and custom brands as part of our build.
+
+              How can we avoid this?
+
+              We can write our variables (not our CSS) in JS.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-              SASS variables in the monolith
+              SASS variables <b>in the monolith</b>
             </Text>
             <div style={{height: "500px", overflow: "auto"}}>
               <CodePane
@@ -506,13 +551,11 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              Run time themeing.
-
               Global/Brand JS variables
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-              Global brand variables defined in JS
+              <b>Global brand variables</b> defined in JS
             </Text>
             <div style={{height: "500px", overflow: "auto"}}>
               <CodePane
@@ -525,13 +568,11 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              Run time themeing.
-
               Component/functional variables
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-              Component variables defined in JS
+              <b>Component variables</b> defined in JS
             </Text>
             <div style={{height: "500px", overflow: "auto"}}>
               <CodePane
@@ -544,9 +585,11 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              Run time themeing.
+              Now these variables are accessible withing our JS code too...
 
-              ApplyTheme component
+              and we can do run time themeing.
+
+              Here's the ApplyTheme component.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -559,9 +602,9 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              How does this work without writing inline styles?
+              How does this work without writing inline styles with JS?
 
-              CSS custom properties
+              ...CSS custom properties
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -589,11 +632,14 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              CSS custom properties browser support
+              CSS custom properties have pretty good browser support
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
               CSS custom properties
+            </Text>
+            <Text textSize="2rem" textColor="tertiary" lineHeight={1}>
+              (we wrote a polyfill for IE)
             </Text>
             <div className="browser">
               <Image src={images.variableSupport.replace("/", "")} margin="0" width="800px" />
@@ -602,31 +648,50 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
-              Polyfill for IE
+              Resources and Links
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
-              Polyfill for IE
+              Resources and Links
             </Text>
-
+            <List textColor="tertiary">
+              <ListItem>
+                <Link textColor="tertiary" href="https://github.com/reactjs/react-docgen">react-docgen</Link>
+              </ListItem>
+              <ListItem>
+                <Link textColor="tertiary" href="http://eslint.org/">eslint</Link>
+              </ListItem>
+              <ListItem>
+                <Link textColor="tertiary" href="https://github.com/stylelint/stylelint">stylelint</Link>
+              </ListItem>
+              <ListItem>
+                <Link textColor="tertiary" href="https://github.com/dequelabs/axe-core">axe-core</Link>
+              </ListItem>
+              <ListItem>
+                <Link textColor="tertiary" href="https://www.npmjs.com/package/eslint-plugin-jsx-a11y">eslint-plugin-jsx-a11y</Link>
+              </ListItem>
+              <ListItem>
+                <Link textColor="tertiary" href="https://github.com/maximkoretskiy/postcss-initial">postcss-initial</Link>
+              </ListItem>
+              <ListItem>
+                <Link textColor="tertiary" href="https://github.com/css-modules/css-modules">css modules</Link>
+              </ListItem>
+              <ListItem>
+                <Link textColor="tertiary" href="https://github.com/webpack/css-loader">webpack css-loader</Link>
+              </ListItem>
+            </List>
           </Slide>
 
           <Slide
+            transition={["spin", "slide"]}
+            bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
             notes={`
-              Resources
-
-              react-docgen,
-              eslint,
-              stylelint,
-              postcss,
-              axe-core,
-              eslint-plugin-jsx-a11y,
-              postcss-initial,
-              css modules,
-              webpack css-loader
+              Questions
             `}
           >
-            <div>TODO</div>
+            <Heading textColor="tertiary" fit caps lineHeight={1}>
+              Questions?
+            </Heading>
           </Slide>
 
         </Deck>
