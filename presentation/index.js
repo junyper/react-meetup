@@ -15,6 +15,7 @@ import {
   Spectacle,
   Text,
   Code,
+  Markdown,
   List,
   ListItem
 } from "spectacle";
@@ -49,7 +50,8 @@ const images = {
   themed: require("../assets/themed.png"),
   zoomed: require("../assets/zoomed.png"),
   variableSupport: require("../assets/variableSupport.png"),
-  holyGrail: require("../assets/holyGrail.jpg")
+  holyGrail: require("../assets/holyGrail.jpg"),
+  microservices: require("../assets/microservices.jpg")
 };
 
 preloader(images);
@@ -93,6 +95,9 @@ export default class Presentation extends React.Component {
             <Heading size={1} fit caps>
               Lead UI Engineer @ <Link href="http://instructure.com" textColor="tertiary">Instructure</Link>
             </Heading>
+            <Text lineHeight={1} textColor="tertiary">
+              jstern@instructure.com
+            </Text>
           </Slide>
 
           <Slide
@@ -179,6 +184,7 @@ export default class Presentation extends React.Component {
             </Text>
             <div style={{height: "500px", overflow: "auto"}}>
               <CodePane
+                textSize="1rem"
                 lang="scss"
                 source={require("raw!../assets/buttons.scss")}
                 margin="1em auto"
@@ -252,31 +258,9 @@ export default class Presentation extends React.Component {
           </Slide>
 
           <Slide
-            transition={["spin", "slide"]}
-            bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
-            notes={`
-              So how do we fix this and get designers and developers to share ownership of
-              our living style guide v2.0?
-            `}
-          >
-            <BlockQuote bgColor="rgba(0, 0, 0, 0.6)" margin="1em 0" padding="1em 1.5em">
-              <Quote textColor="tertiary" textSize="1em" bold={false} lineHeight={1.2}>
-                Make the right things easy and the wrong things hard.
-              </Quote>
-              <Cite textColor="tertiary" textSize="0.5em">
-                <Link textColor="tertiary" href="https://en.wikipedia.org/wiki/Style_guide">
-                  Jonathan Snook
-                </Link>
-              </Cite>
-            </BlockQuote>
-          </Slide>
-
-          <Slide
             notes={`
               Let's compare that Toggle documentation with a custom checkbox (toggle)
               in our new React style guide.
-
-              Notice that here we're encapsulating style, markup and behavior for the component.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -297,6 +281,10 @@ export default class Presentation extends React.Component {
 
               But in this case, CSS, JS, HTML and documentation are bundled and documented as one
               component.
+
+              Notice that here we're encapsulating style, markup and behavior for the component.
+
+              And we've replaced all of those lines of code with one.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -307,11 +295,34 @@ export default class Presentation extends React.Component {
             </Text>
             <div style={{height: "300px", overflow: "auto"}}>
               <CodePane
+                textSize="1rem"
                 lang="jsx"
                 source={require("raw!../assets/checkbox.js")}
                 margin="1em auto"
               />
             </div>
+          </Slide>
+
+          <Slide
+            transition={["spin", "slide"]}
+            bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
+            notes={`
+              So that's great, but how do we get designers and developers to share ownership of
+              our living style guide v2.0 (and actually use it)?
+            `}
+          >
+            <BlockQuote bgColor="rgba(0, 0, 0, 0.6)" margin="1em 0" padding="1em 1.5em">
+              <Quote textColor="tertiary" textSize="1em" bold={false} lineHeight={1.2}>
+                Make the right things easy and the wrong things hard.
+              </Quote>
+              <Cite textColor="tertiary" textSize="0.5em">
+                <Link textColor="tertiary" href="https://en.wikipedia.org/wiki/Style_guide">
+                  Jonathan Snook
+                </Link>
+              </Cite>
+            </BlockQuote>
+
+            <Text textColor="tertiary" textSize="0.75em">And now I'll attempt to live code...</Text>
           </Slide>
 
           <Slide
@@ -327,6 +338,9 @@ export default class Presentation extends React.Component {
               Now designers can (at minimum) pull down code from a pull request and run it locally.
 
               (We're working on convincing them that they can update it too :) )
+
+              The easiest thing used to be to make a one-off solution for the feature, but we've
+              made it a lot easier to contribute to the shared UI code instead.
             `}
           >
             <Image src={images.happy.replace("/", "")} margin="0" />
@@ -336,24 +350,48 @@ export default class Presentation extends React.Component {
             transition={["spin", "slide"]}
             bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
             notes={`
+              So now that we're bundling JS, CSS and HTML together into a single component, how can we be sure
+              that it will render the same in the application as it does in our style guide?
 
+              Can we take advantage of the fact that we're using JS to render these components?
+
+              Should we consider writing our CSS in JS (as inline styles)?
+
+              Lots of react component libraries are using frameworks like Radium and Aphrodite to write CSS in JS.
             `}
           >
-            <Heading size={1} fit caps>How does it work?</Heading>
+            <BlockQuote bgColor="rgba(0, 0, 0, 0.6)" margin="1em 0" padding="1em 1.5em">
+              <Quote textColor="tertiary" textSize="1em" bold={false} lineHeight={1.2}>
+                CSS in JS?
+                <Markdown>
+                {`
+1. Global Namespaces
+2. Dependencies
+3. Dead Code Elimination
+4. Minification
+5. Sharing Constants
+6. Non-Deterministic Resolution
+7. Isolation
+                `}
+                </Markdown>
+              </Quote>
+              <Cite textColor="tertiary" textSize="0.5em">
+                <Link textColor="tertiary" href="">
+                  Christopher "vjeux" Chedeau
+                </Link>
+              </Cite>
+            </BlockQuote>
           </Slide>
-
           <Slide
             notes={`
-              So what are some of the tools we're using?
-
-              CSS Modules
+              CSS Modules solves 1-6 and half of 7
 
               With CSS modules we can isolate components and make them more durable by
               limiting the scope of their CSS.
 
-              Frameworks like Radium and Aphrodite do this by writing CSS rules in JS.
-
-              Prevent the cascade with all: initial and postcss-initial
+              With CSS modules we can write our class names as if they were only scoped
+              to the component we're working on without worrying that we'll accidentally
+              break something somewhere else.
             `}
           >
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
@@ -365,12 +403,32 @@ export default class Presentation extends React.Component {
             <div style={{height: "400px", overflow: "auto"}}>
               <CodePane
                 lang="css"
+                textSize="1rem"
                 source={require("raw!../assets/button.css")}
                 margin="1em auto"
               />
             </div>
           </Slide>
-
+          <Slide
+            notes={`
+              CSS Modules
+            `}
+          >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              CSS Modules
+            </Text>
+            <Text textColor="tertiary" caps fit>
+              loading a CSS file in a JS component
+            </Text>
+            <div style={{height: "400px", overflow: "auto"}}>
+              <CodePane
+                lang="js"
+                textSize="1rem"
+                source={require("raw!../assets/button.js")}
+                margin="1em auto"
+              />
+            </div>
+          </Slide>
           <Slide
             notes={`
               Generated class names in production
@@ -403,6 +461,8 @@ export default class Presentation extends React.Component {
 
           <Slide
             notes={`
+              The other half of #7
+
               Prevent the cascade with all: initial and postcss-initial
 
               We need to roll out these components bit by bit, so they need to work when older
@@ -429,6 +489,12 @@ export default class Presentation extends React.Component {
             notes={`
               As it turns out, bundling component JS, CSS and markup together
               makes writing accessibile UIs a whole lot easier.
+
+              What does it mean for a UI to be accesible?
+
+              It's about building your UI so that it works with assistive tech like screen readers,
+              keyboards (for users who can't use a mouse) and for people who may be color blind or
+              have partial vision.
             `}
           >
             <Heading size={1} fit caps>Accessibility</Heading>
@@ -442,7 +508,7 @@ export default class Presentation extends React.Component {
               we've added onClick behavior to a div or we've styled a link to look
               like a button (or vice versa).
 
-              A11y rule of thumb:
+              Rule of thumb for keyboard a11y:
 
               If it looks like a button it should behave like a button.
               If it looks like a link it should behave like a link.
@@ -471,6 +537,7 @@ export default class Presentation extends React.Component {
             <div style={{height: "400px", overflow: "auto"}}>
               <CodePane
                 lang="jsx"
+                textSize="1rem"
                 source={require("raw!../assets/button.js")}
                 margin="1em auto"
               />
@@ -494,6 +561,7 @@ export default class Presentation extends React.Component {
             <div style={{height: "500px", overflow: "auto"}}>
               <CodePane
                 lang="jsx"
+                textSize="1rem"
                 source={require("raw!../assets/checkbox.test.js")}
                 margin="1em auto"
               />
@@ -515,6 +583,7 @@ export default class Presentation extends React.Component {
             <div style={{height: "500px", overflow: "auto"}}>
               <CodePane
                 lang="jsx"
+                textSize="1rem"
                 source={require("raw!../assets/button.test.js")}
                 margin="1em auto"
               />
@@ -554,6 +623,7 @@ export default class Presentation extends React.Component {
             <div style={{height: "500px", overflow: "auto"}}>
               <CodePane
                 lang="scss"
+                textSize="1rem"
                 source={require("raw!../assets/variables.scss")}
                 margin="1em auto"
               />
@@ -571,6 +641,7 @@ export default class Presentation extends React.Component {
             <div style={{height: "500px", overflow: "auto"}}>
               <CodePane
                 lang="js"
+                textSize="1rem"
                 source={require("raw!../assets/brand.js")}
                 margin="1em auto"
               />
@@ -588,6 +659,7 @@ export default class Presentation extends React.Component {
             <div style={{height: "500px", overflow: "auto"}}>
               <CodePane
                 lang="js"
+                textSize="1rem"
                 source={require("raw!../assets/theme.js")}
                 margin="1em auto"
               />
@@ -637,6 +709,7 @@ export default class Presentation extends React.Component {
             <CodePane
               lang="js"
               source={require("raw!../assets/setProperty.js")}
+              textSize="1em"
               margin="1em auto"
             />
           </Slide>
@@ -657,9 +730,32 @@ export default class Presentation extends React.Component {
             </div>
           </Slide>
 
+
           <Slide
             transition={["spin", "slide"]}
-            bgImage={images.styleguide.replace("/", "")} bgDarken={0.50}
+            bgImage={images.microservices.replace("/", "")} bgDarken={0.70}
+            notes={`
+              How's it going so far?
+            `}
+          >
+            <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
+              Built to Scale
+            </Text>
+            <Text textSize="3rem" textColor="tertiary" bold>
+              We're using our UI components in multiple applications as we start breaking up the monolith
+              into microservices
+            </Text>
+            <Text textColor="tertiary">
+              &
+            </Text>
+            <Text textSize="3rem" textColor="tertiary" bold>
+              Our professional services team is using the library to build custom integrations with a seamless UX.
+            </Text>
+          </Slide>
+
+          <Slide
+            transition={["spin", "slide"]}
+            bgImage={images.styleguide.replace("/", "")} bgDarken={0.70}
             notes={`
               Questions
             `}
@@ -667,6 +763,17 @@ export default class Presentation extends React.Component {
             <Heading textColor="tertiary" fit caps lineHeight={1}>
               Questions?
             </Heading>
+
+            <Text fit margin="2em 0" bold textColor="tertiary">
+              https://github.com/instructure/instructure-ui
+            </Text>
+
+            <Text caps lineHeight={1} textColor="primary" bold margin="1em 0">
+              We're Hiring!
+            </Text>
+            <Text textColor="tertiary">
+              Contact Ariel: apao@instructure.com
+            </Text>
           </Slide>
 
           <Slide
@@ -704,6 +811,7 @@ export default class Presentation extends React.Component {
               </ListItem>
             </List>
           </Slide>
+
         </Deck>
       </Spectacle>
     );
