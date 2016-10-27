@@ -20,6 +20,8 @@ import {
   ListItem
 } from "spectacle";
 
+import CodeSlide from "spectacle-code-slide";
+
 // Import image preloader util
 import preloader from "spectacle/lib/utils/preloader";
 
@@ -182,16 +184,17 @@ export default class Presentation extends React.Component {
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
               Documentation lives with the source code in the same repository
             </Text>
-            <div style={{height: "500px", overflow: "auto"}}>
-              <CodePane
-                textSize="1rem"
-                lang="scss"
-                source={require("raw!../assets/buttons.scss")}
-                margin="1em auto"
-              />
-            </div>
           </Slide>
 
+          <CodeSlide
+            transition={["slide"]}
+            lang="jsx"
+            code={require("raw!../assets/buttons.scss")}
+            ranges={[
+              { loc: [0, 0], title: "buttons.scss" },
+              { loc: [0, 21]}
+            ]}
+          />
 
           <Slide
             bgColor="black"
@@ -293,15 +296,17 @@ export default class Presentation extends React.Component {
             <Text textColor="tertiary" caps fit>
               in one place
             </Text>
-            <div style={{height: "300px", overflow: "auto"}}>
-              <CodePane
-                textSize="1rem"
-                lang="jsx"
-                source={require("raw!../assets/checkbox.js")}
-                margin="1em auto"
-              />
-            </div>
           </Slide>
+
+          <CodeSlide
+            transition={["slide"]}
+            lang="jsx"
+            code={require("raw!../assets/checkbox.js")}
+            ranges={[
+              { loc: [48, 270], title: "checkbox.js" },
+              { loc: [21, 24]}
+            ]}
+          />
 
           <Slide
             transition={["spin", "slide"]}
@@ -400,15 +405,19 @@ export default class Presentation extends React.Component {
             <Text textColor="tertiary" caps fit>
               (isolate component styles <b>without writing CSS in JS</b>)
             </Text>
-            <div style={{height: "400px", overflow: "auto"}}>
-              <CodePane
-                lang="css"
-                textSize="1rem"
-                source={require("raw!../assets/button.css")}
-                margin="1em auto"
-              />
-            </div>
           </Slide>
+
+
+          <CodeSlide
+            transition={["slide"]}
+            lang="jsx"
+            code={require("raw!../assets/button.css")}
+            ranges={[
+              { loc: [0, 0], title: "button.css" },
+              { loc: [274, 280], title: "local classes"}
+            ]}
+          />
+
           <Slide
             notes={`
               CSS Modules
@@ -420,15 +429,20 @@ export default class Presentation extends React.Component {
             <Text textColor="tertiary" caps fit>
               loading a CSS file in a JS component
             </Text>
-            <div style={{height: "400px", overflow: "auto"}}>
-              <CodePane
-                lang="js"
-                textSize="1rem"
-                source={require("raw!../assets/button.js")}
-                margin="1em auto"
-              />
-            </div>
           </Slide>
+
+          <CodeSlide
+            transition={["slide"]}
+            lang="jsx"
+            code={require("raw!../assets/button.js")}
+            ranges={[
+              { loc: [0, 0], title: "button.js" },
+              { loc: [7, 9], title: "importing styles"},
+              { loc: [161, 168], title: "rendering styles"},
+              { loc: [184, 195] }
+            ]}
+          />
+
           <Slide
             notes={`
               Generated class names in production
@@ -534,15 +548,18 @@ export default class Presentation extends React.Component {
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
               Adding (JS) behavior to components for <b>accessibility</b>
             </Text>
-            <div style={{height: "400px", overflow: "auto"}}>
-              <CodePane
-                lang="jsx"
-                textSize="1rem"
-                source={require("raw!../assets/button.js")}
-                margin="1em auto"
-              />
-            </div>
           </Slide>
+
+
+          <CodeSlide
+            transition={["slide"]}
+            lang="jsx"
+            code={require("raw!../assets/button.js")}
+            ranges={[
+              { loc: [0, 0], title: "button.js" },
+              { loc: [113, 134]}
+            ]}
+          />
 
           <Slide
             notes={`
@@ -558,15 +575,17 @@ export default class Presentation extends React.Component {
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
               Unit tests for Accessibility using <b>axe-core</b>
             </Text>
-            <div style={{height: "500px", overflow: "auto"}}>
-              <CodePane
-                lang="jsx"
-                textSize="1rem"
-                source={require("raw!../assets/checkbox.test.js")}
-                margin="1em auto"
-              />
-            </div>
           </Slide>
+
+          <CodeSlide
+            transition={["slide"]}
+            lang="jsx"
+            code={require("raw!../assets/checkbox.test.js")}
+            ranges={[
+              { loc: [0, 0], title: "checkbox.test.js" },
+              { loc: [79, 87]}
+            ]}
+          />
 
           <Slide
             notes={`
@@ -580,15 +599,17 @@ export default class Presentation extends React.Component {
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
               Testing <b>color contrast</b> for a11y
             </Text>
-            <div style={{height: "500px", overflow: "auto"}}>
-              <CodePane
-                lang="jsx"
-                textSize="1rem"
-                source={require("raw!../assets/button.test.js")}
-                margin="1em auto"
-              />
-            </div>
           </Slide>
+
+          <CodeSlide
+            transition={["slide"]}
+            lang="jsx"
+            code={require("raw!../assets/button.test.js")}
+            ranges={[
+              { loc: [0, 0], title: "theme.test.js" },
+              { loc: [8, 14]}
+            ]}
+          />
 
           <Slide
             transition={["spin", "slide"]}
@@ -620,15 +641,18 @@ export default class Presentation extends React.Component {
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
               SASS variables <b>in the monolith</b>
             </Text>
-            <div style={{height: "500px", overflow: "auto"}}>
-              <CodePane
-                lang="scss"
-                textSize="1rem"
-                source={require("raw!../assets/variables.scss")}
-                margin="1em auto"
-              />
-            </div>
           </Slide>
+
+          <CodeSlide
+            transition={["slide"]}
+            lang="css"
+            code={require("raw!../assets/variables.scss")}
+            ranges={[
+              { loc: [0, 0], title: "variables.scss" },
+              { loc: [186, 188], title: "global variables"},
+              { loc: [204, 208], title: "functional variables"}
+            ]}
+          />
 
           <Slide
             notes={`
@@ -638,15 +662,17 @@ export default class Presentation extends React.Component {
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
               <b>Global brand variables</b> defined in JS
             </Text>
-            <div style={{height: "500px", overflow: "auto"}}>
-              <CodePane
-                lang="js"
-                textSize="1rem"
-                source={require("raw!../assets/brand.js")}
-                margin="1em auto"
-              />
-            </div>
           </Slide>
+
+          <CodeSlide
+            transition={["slide"]}
+            lang="js"
+            code={require("raw!../assets/brand.js")}
+            ranges={[
+              { loc: [0, 0], title: "brand.js" },
+              { loc: [4, 9], title: "global color variables"}
+            ]}
+          />
 
           <Slide
             notes={`
@@ -656,15 +682,17 @@ export default class Presentation extends React.Component {
             <Text textSize="1rem" textColor="tertiary" fit caps lineHeight={1}>
               <b>Component variables</b> defined in JS
             </Text>
-            <div style={{height: "500px", overflow: "auto"}}>
-              <CodePane
-                lang="js"
-                textSize="1rem"
-                source={require("raw!../assets/theme.js")}
-                margin="1em auto"
-              />
-            </div>
           </Slide>
+
+          <CodeSlide
+            transition={["slide"]}
+            lang="js"
+            code={require("raw!../assets/theme.js")}
+            ranges={[
+              { loc: [0, 0], title: "theme.js" },
+              { loc: [7, 14], title: "component variables"}
+            ]}
+          />
 
           <Slide
             notes={`
